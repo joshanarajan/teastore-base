@@ -1,0 +1,14 @@
+FROM ubuntu:18.04
+RUN apt-get update
+
+FROM maven:3.6-openjdk-8
+COPY pom.xml /tmp/
+COPY services /tmp/services/	
+COPY utilities /tmp/utilities/
+COPY interfaces /tmp/interfaces/
+COPY target /tmp/target/
+COPY limbo_checkstyle.xml /tmp/
+
+WORKDIR /tmp/
+
+RUN mvn clean install -DskipTests
